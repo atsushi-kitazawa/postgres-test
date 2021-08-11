@@ -3,16 +3,23 @@ package com.example.jpa.entity;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.Arrays;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Test;
 
 import com.example.jpa.factory.TestEntityManagerFactory;
 
 public class T1AccessTest {
+
+	@ClassRule
+	public static DatabaseResouce resource = new DatabaseResouce(
+			Arrays.asList("test.t1"));
 
 	private static final String UNIT_NAME = "eclipselink_testing";
 	private EntityManager em;
@@ -25,14 +32,6 @@ public class T1AccessTest {
 	@After
 	public void tearDown() throws Exception {
 		em.close();
-	}
-
-	@Test
-	public void testFind() {
-		T1Access a = new T1Access();
-		T1 t1 = a.find(em, 1);
-		assertThat(t1.getId(), is(1));
-		assertThat(t1.getName(), is("hoge"));
 	}
 
 	@Test
