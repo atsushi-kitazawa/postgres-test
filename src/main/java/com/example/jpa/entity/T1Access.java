@@ -3,12 +3,17 @@ package com.example.jpa.entity;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
 public class T1Access {
-	public T1 find(EntityManager em, int id) {
-		return (T1) em.find(T1.class, id);
+	public T1 find(EntityManager em, int id) throws EntityNotFoundException {
+		T1 ret = em.find(T1.class, id);
+		if (ret == null) {
+			throw new EntityNotFoundException();
+		}
+		return ret;
 	}
 
 	public void persist(EntityManager em, T1 t) {

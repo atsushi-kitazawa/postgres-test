@@ -1,7 +1,6 @@
 package com.example.jpa;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 import com.example.jpa.entity.T1;
@@ -9,9 +8,11 @@ import com.example.jpa.entity.T1Access;
 import com.example.jpa.factory.TestEntityManagerFactory;
 
 public class JpaMain {
+
+	private static final String UNIT_NAME = "eclipselink_production";
+
 	public static void main(String[] args) {
-		EntityManagerFactory emf = TestEntityManagerFactory.getEMFactory();
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = TestEntityManagerFactory.getEntityManager(UNIT_NAME);
 		EntityTransaction et = em.getTransaction();
 
 		T1Access instance = new T1Access();
